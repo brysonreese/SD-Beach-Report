@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		826F81E02FC782BA00CF42DC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 826F81DF2FC782BA00CF42DC /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		826F818E2FC7419A00CF42DC /* BeachTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeachTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		826F81DF2FC782BA00CF42DC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -34,6 +39,7 @@
 			children = (
 				826F81902FC7419A00CF42DC /* BeachTime */,
 				826F818F2FC7419A00CF42DC /* Products */,
+				826F81DF2FC782BA00CF42DC /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				826F81E02FC782BA00CF42DC /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
