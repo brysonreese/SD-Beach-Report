@@ -9,7 +9,7 @@ import Foundation
 internal import UIKit
 
 extension String {
-    var htmlStripped: AttributedString {
+    var htmlParsed: AttributedString {
         guard let data = self.data(using: .utf8),
               let nsAttributed = try? NSAttributedString(
                 data: data,
@@ -22,6 +22,9 @@ extension String {
             return AttributedString(self)
         }
         
-        return (try? AttributedString(nsAttributed, including: \.uiKit)) ?? AttributedString(self)
+        var attributed = (try? AttributedString(nsAttributed, including: \.uiKit)) ?? AttributedString(self)
+        attributed.font = .preferredFont(forTextStyle: .body)
+        attributed.foregroundColor = .label
+        return attributed
     }
 }

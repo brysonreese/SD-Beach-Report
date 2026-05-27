@@ -18,14 +18,14 @@ struct DetailsView: View {
             }
             
             Section("Description") {
-                Text(report.description.htmlStripped)
+                Text(report.description.htmlParsed)
                     .font(.body)
             }
             
             if report.advisory != nil && report.advisory != "" {
                 Section("Advisories") {
                     if let advisory = report.advisory {
-                        Text(advisory.htmlStripped)
+                        Text(advisory.htmlParsed)
                     }
                 }
             }
@@ -33,7 +33,7 @@ struct DetailsView: View {
             if report.closure != nil && report.closure != "" {
                 Section("Closure") {
                     if let closure = report.closure {
-                        Text(closure.htmlStripped)
+                        Text(closure.htmlParsed)
                     }
                 }
             }
