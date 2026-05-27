@@ -22,8 +22,7 @@ struct HomeView: View {
                 } else {
                     BeachList(beaches: repository.favorites)
                 }
-            }
-            .navigationTitle("Home")
+            }.navigationTitle("Home")
         }
     }
 

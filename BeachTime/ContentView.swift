@@ -16,6 +16,9 @@ struct ContentView: View {
             Tab("Reports", systemImage: "list.clipboard") {
                 FullListView()
             }
+            Tab("Map", systemImage: "map") {
+                BeachMapView()
+            }
             Tab("Settings", systemImage: "gear") {
                 Text("Settings")
             }

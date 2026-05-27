@@ -35,8 +35,10 @@ class BeachReportRepository: ObservableObject {
         }
     }
     
-    func fetchReports() async throws {
-        isLoading = true
+    func fetchReports(isRefreshing: Bool = false) async throws {
+        if(!isRefreshing) {
+            isLoading = true
+        }
         error = nil
         
         do {
@@ -49,7 +51,10 @@ class BeachReportRepository: ObservableObject {
             reports = try JSONDecoder().decode([BeachReport].self, from: data).filter { $0.indicatorID != 4 }
             await loadFavorites()
         } catch {
-            self.error = error
+            if (error as? URLError)?.code == .cancelled {
+            } else {
+                self.error = error
+            }
         }
         
         isLoading = false

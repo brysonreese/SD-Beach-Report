@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct BeachReport: Codable {
+struct BeachReport: Codable, Identifiable {
+    var id: Int { siteID }
     var siteID: Int
     var dehID: String
     var name: String

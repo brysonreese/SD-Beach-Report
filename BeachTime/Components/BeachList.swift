@@ -24,6 +24,12 @@ struct BeachList: View {
                     Label("Favorite", systemImage: "star")
                 }
             }
+        }.refreshable{
+            do {
+                try await repository.fetchReports(isRefreshing: true)
+            } catch {
+                repository.error = error
+            }
         }
     }
 }
