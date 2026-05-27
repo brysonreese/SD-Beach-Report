@@ -22,10 +22,9 @@ struct BeachReportRow: View {
     var body: some View {
         HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 4) {
-                Text(report.name)
+                Text(report.cleanName)
                     .font(.headline)
                     .lineLimit(2)
-
             }
             
             Spacer()

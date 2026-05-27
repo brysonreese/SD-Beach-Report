@@ -24,7 +24,7 @@ struct BeachMapView: View {
             } else {
                 Map {
                     ForEach(repository.reports, id: \.siteID) { report in
-                        Annotation(report.name, coordinate: CLLocationCoordinate2D(latitude: report.latitude, longitude: report.longitude)) {
+                        Annotation(report.cleanName, coordinate: CLLocationCoordinate2D(latitude: report.latitude, longitude: report.longitude)) {
                             BeachMapPin(report: report)
                                 .onTapGesture {
                                     selectedReport = report

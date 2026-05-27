@@ -20,6 +20,10 @@ struct BeachReport: Codable, Identifiable {
     var closure: String?
     var favorite: Bool = false
     
+    var cleanName: String {
+        name.replacingOccurrences(of: #"\s*\(.*?\)$"#, with: "", options: .regularExpression)
+    }
+    
     enum CodingKeys: String, CodingKey {
         case siteID = "SiteID"
         case dehID = "DehID"

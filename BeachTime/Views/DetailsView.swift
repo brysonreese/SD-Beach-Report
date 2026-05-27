@@ -17,7 +17,7 @@ struct DetailsView: View {
         List {
             Section("Beach Info") {
                 LabeledContent("DEH ID", value: report.dehID)
-                LabeledContent("Name", value: report.name)
+                LabeledContent("Name", value: report.cleanName)
             }
 
             Section("Description") {
@@ -48,7 +48,7 @@ struct DetailsView: View {
             parsedAdvisory = report.advisory?.htmlParsed
             parsedClosure = report.closure?.htmlParsed
         }
-        .navigationTitle(report.name)
+        .navigationTitle(report.cleanName)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
