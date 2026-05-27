@@ -1,32 +1,17 @@
 //
-//  DetailedListView.swift
+//  BeachList.swift
 //  BeachTime
 //
 //  Created by Bryson Reese on 5/27/26.
 //
-
 import SwiftUI
 
-struct DetailedListView: View {
+struct BeachList: View {
+    let beaches: [BeachReport]
     @EnvironmentObject var repository: BeachReportRepository
     
     var body: some View {
-        NavigationStack {
-            Group {
-                if repository.isLoading {
-                    ProgressView("Loading...")
-                } else if let error = repository.error {
-                    Text("Error: \(error.localizedDescription)")
-                } else {
-                    beachList
-                }
-            }
-            .navigationTitle("Beach Reports")
-        }
-    }
-    
-    private var beachList: some View {
-        List(repository.reports, id: \.siteID) { report in
+        List(beaches, id: \.siteID) { report in
             NavigationLink(destination: DetailsView(report: report)) {
                 BeachReportRow(report: report)
             }
@@ -42,3 +27,4 @@ struct DetailedListView: View {
         }
     }
 }
+

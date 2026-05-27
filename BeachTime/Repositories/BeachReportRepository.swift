@@ -19,6 +19,14 @@ class BeachReportRepository: ObservableObject {
         reports.filter { $0.favorite }
     }
     
+    var sortedReports: [BeachReport] {
+        let order = [1, 3, 2]
+        return reports.sorted {
+            (order.firstIndex(of: $0.indicatorID) ?? 999) <
+            (order.firstIndex(of: $1.indicatorID) ?? 999)
+        }
+    }
+    
     private let url = URL(string: "https://www.sdbeachinfo.com/Home/GetTargetByID")!
     
     init() {

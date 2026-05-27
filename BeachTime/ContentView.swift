@@ -14,7 +14,7 @@ struct ContentView: View {
                 HomeView()
             }
             Tab("Reports", systemImage: "list.clipboard") {
-                DetailedListView()
+                FullListView()
             }
             Tab("Settings", systemImage: "gear") {
                 Text("Settings")
