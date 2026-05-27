@@ -1,10 +1,10 @@
-# SD Beach Reports
+# BeachTime
 
 An iOS app for checking water quality and advisory status for beaches across San Diego County.
 
 ## Overview
 
-SD Beach Reports pulls live data from the San Diego County Department of Environmental Health (DEH) beach monitoring API and displays current water quality status for beaches across the county. Users can quickly see which beaches are open, under advisory, or closed, and save their favorite spots for quick access.
+BeachTime pulls live data from the San Diego County Department of Environmental Health (DEH) beach monitoring API and displays current water quality status for beaches across the county. Users can quickly see which beaches are open, under advisory, or closed, and save their favorite spots for quick access.
 
 ## Features
 
