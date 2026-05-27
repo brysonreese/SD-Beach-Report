@@ -28,6 +28,12 @@ class BeachReportRepository: ObservableObject {
     }
     
     private let url = URL(string: "https://www.sdbeachinfo.com/Home/GetTargetByID")!
+    private let session: URLSession = {
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 5 // seconds to wait for a response
+        config.timeoutIntervalForResource = 8 // total time for the whole request
+        return URLSession(configuration: config)
+    }()
     
     init() {
         Task {
@@ -42,7 +48,7 @@ class BeachReportRepository: ObservableObject {
         error = nil
         
         do {
-            let (data, response) = try await URLSession.shared.data(from: url)
+            let (data, response) = try await session.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 throw URLError(.badServerResponse)
@@ -54,6 +60,7 @@ class BeachReportRepository: ObservableObject {
             if (error as? URLError)?.code == .cancelled {
             } else {
                 self.error = error
+                
             }
         }
         

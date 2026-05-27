@@ -1,5 +1,5 @@
 //
-//  FullListView.swift
+//  FavoritesView.swift
 //  BeachTime
 //
 //  Created by Bryson Reese on 5/27/26.
@@ -7,19 +7,8 @@
 
 import SwiftUI
 
-struct FullListView: View {
+struct FavoritesView: View {
     @EnvironmentObject var repository: BeachReportRepository
-    @State var searchText = ""
-    
-    var filteredReports: [BeachReport] {
-        if searchText.isEmpty {
-            return repository.sortedReports
-        } else {
-            return repository.sortedReports.filter {
-                $0.name.localizedCaseInsensitiveContains(searchText)
-            }
-        }
-    }
     
     var body: some View {
         NavigationStack {
@@ -33,11 +22,15 @@ struct FullListView: View {
                     }
                 } else if repository.isLoading {
                     ProgressView("Loading...")
+                } else if repository.favorites.isEmpty {
+                    ContentUnavailableView {
+                        Label("No Favorites", systemImage: "star.square.on.square")
+                        Text("Add favorites to see them here!")
+                    }
                 } else {
-                    BeachList(beaches: filteredReports)
+                    BeachList(beaches: repository.favorites)
                 }
-            }
-            .navigationTitle("Beach Reports")
+            }.navigationTitle("Favorites")
             .refreshable{
                 do {
                     try await repository.fetchReports(isRefreshing: true)
@@ -46,6 +39,6 @@ struct FullListView: View {
                 }
             }
         }
-        .searchable(text: $searchText, prompt: "Search beaches...")
     }
+
 }

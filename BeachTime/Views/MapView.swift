@@ -13,18 +13,29 @@ struct BeachMapView: View {
     @State private var selectedReport: BeachReport?
     
     var body: some View {
-        Map {
-            ForEach(repository.reports, id: \.siteID) { report in
-                Annotation(report.name, coordinate: CLLocationCoordinate2D(latitude: report.latitude, longitude: report.longitude)) {
-                    BeachMapPin(report: report)
-                        .onTapGesture {
-                            selectedReport = report
+        Group {
+            if repository.isLoading {
+                ProgressView("Loading...")
+            } else if let error = repository.error {
+                ContentUnavailableView {
+                    Label("Error", systemImage: "exclamationmark.triangle.fill")
+                    Text(error.localizedDescription)
+                }
+            } else {
+                Map {
+                    ForEach(repository.reports, id: \.siteID) { report in
+                        Annotation(report.name, coordinate: CLLocationCoordinate2D(latitude: report.latitude, longitude: report.longitude)) {
+                            BeachMapPin(report: report)
+                                .onTapGesture {
+                                    selectedReport = report
+                                }
                         }
+                    }
+                }.sheet(item: $selectedReport) { report in
+                    DetailsView(report: report)
+                        .presentationDetents([.medium, .large])
                 }
             }
-        }.sheet(item: $selectedReport) { report in
-            DetailsView(report: report)
-                .presentationDetents([.medium, .large])
         }
     }
 }
