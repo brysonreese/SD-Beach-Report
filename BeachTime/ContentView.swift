@@ -11,7 +11,7 @@ struct ContentView: View {
     var body: some View {
         TabView {
             Tab("Home", systemImage: "house") {
-                Text("Home")
+                HomeView()
             }
             Tab("Reports", systemImage: "list.clipboard") {
                 DetailedListView()

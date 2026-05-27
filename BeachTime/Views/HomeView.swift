@@ -1,5 +1,5 @@
 //
-//  DetailedListView.swift
+//  HomeView.swift
 //  BeachTime
 //
 //  Created by Bryson Reese on 5/27/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DetailedListView: View {
+struct HomeView: View {
     @EnvironmentObject var repository: BeachReportRepository
     
     var body: some View {
@@ -17,16 +17,18 @@ struct DetailedListView: View {
                     ProgressView("Loading...")
                 } else if let error = repository.error {
                     Text("Error: \(error.localizedDescription)")
+                } else if repository.favorites.isEmpty {
+                    Text("Add favorites to see them here!")
                 } else {
                     beachList
                 }
             }
-            .navigationTitle("Beach Reports")
+            .navigationTitle("Home")
         }
     }
     
     private var beachList: some View {
-        List(repository.reports, id: \.siteID) { report in
+        List(repository.favorites, id: \.siteID) { report in
             NavigationLink(destination: DetailsView(report: report)) {
                 BeachReportRow(report: report)
             }
@@ -41,4 +43,5 @@ struct DetailedListView: View {
             }
         }
     }
+
 }

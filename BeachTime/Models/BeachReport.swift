@@ -17,6 +17,7 @@ struct BeachReport: Codable {
     var description: String
     var advisory: String?
     var closure: String?
+    var favorite: Bool = false
     
     enum CodingKeys: String, CodingKey {
         case siteID = "SiteID"

@@ -21,17 +21,19 @@ struct BeachReportRow: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: statusIcon.name)
-                .foregroundStyle(statusIcon.color)
-                .font(.system(size: 32))
-            
             VStack(alignment: .leading, spacing: 4) {
                 Text(report.name)
                     .font(.headline)
                     .lineLimit(2)
+
             }
             
             Spacer()
+            
+            Image(systemName: statusIcon.name)
+                .foregroundStyle(statusIcon.color)
+                .font(.system(size: 32))
+            
         }
         .padding(.vertical, 4)
     }

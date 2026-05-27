@@ -15,6 +15,10 @@ class BeachReportRepository: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var error: Error?
     
+    var favorites: [BeachReport] {
+        reports.filter { $0.favorite }
+    }
+    
     private let url = URL(string: "https://www.sdbeachinfo.com/Home/GetTargetByID")!
     
     init() {
@@ -35,10 +39,32 @@ class BeachReportRepository: ObservableObject {
             }
             
             reports = try JSONDecoder().decode([BeachReport].self, from: data).filter { $0.indicatorID != 4 }
+            await loadFavorites()
         } catch {
             self.error = error
         }
         
         isLoading = false
+    }
+    
+    func toggleFavorite(for report: BeachReport) {
+        if let index = reports.firstIndex(where: { $0.dehID == report.dehID }) {
+            reports[index].favorite.toggle()
+            saveFavorites()
+        }
+    }
+    
+    private let favoritesKey = "favoriteDehIDs"
+
+    func saveFavorites() {
+        let ids = reports.filter { $0.favorite }.map { $0.dehID }
+        UserDefaults.standard.set(ids, forKey: favoritesKey)
+    }
+
+    func loadFavorites() async {
+        let savedIDs = UserDefaults.standard.stringArray(forKey: favoritesKey) ?? []
+        for index in reports.indices {
+            reports[index].favorite = savedIDs.contains(reports[index].dehID)
+        }
     }
 }
