@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct BeachTimeApp: App {
+    @StateObject var repository = BeachReportRepository()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(repository)
         }
     }
+}
+
+#Preview {
+    ContentView()
+        .environmentObject(BeachReportRepository())
 }
