@@ -8,14 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var repository = BeachReportRepository()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            Group {
+                if repository.isLoading {
+                    ProgressView("Loading...")
+                } else if let error = repository.error {
+                    Text("Error: \(error.localizedDescription)")
+                } else {
+                    List(repository.reports, id: \.siteID) { report in
+                        VStack(alignment: .leading) {
+                            Text(report.name)
+                                .font(.headline)
+                            Text(report.dehID)
+                                .font(.subheadline)
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Beach Reports")
         }
-        .padding()
     }
 }
 
