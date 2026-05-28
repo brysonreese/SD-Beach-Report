@@ -12,7 +12,7 @@ struct BeachList: View {
     
     var body: some View {
         List(beaches, id: \.siteID) { report in
-            NavigationLink(destination: DetailsView(report: report)) {
+            NavigationLink(destination: DetailsView(siteID: report.siteID)) {
                 BeachReportRow(report: report)
             }
             .swipeActions(edge: .leading) {

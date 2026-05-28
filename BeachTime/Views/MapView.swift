@@ -32,7 +32,7 @@ struct BeachMapView: View {
                         }
                     }
                 }.sheet(item: $selectedReport) { report in
-                    DetailsView(report: report)
+                    DetailsView(siteID: report.siteID)
                         .presentationDetents([.medium, .large])
                         .presentationContentInteraction(.scrolls)
                         .padding(.top, 20)
