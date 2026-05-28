@@ -102,7 +102,6 @@ struct BeachMapView: View {
                                 }
                         } else {
                             List {
-                                // search bar as header
                                 HStack {
                                     Image(systemName: "magnifyingglass")
                                         .foregroundStyle(.secondary)

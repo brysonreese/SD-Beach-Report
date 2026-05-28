@@ -26,10 +26,12 @@ struct MainView: View {
                         Text("Browse beaches to add favorites")
                     }
                 } else {
-                    BeachList(beaches: repository.favorites)
+                    Section(header: Text("Favorites")) {
+                        BeachList(beaches: repository.favorites)
+                    }
                 }
             }
-            .navigationTitle("Beach Time")
+            .navigationTitle("BeachTime")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FullListView()) {

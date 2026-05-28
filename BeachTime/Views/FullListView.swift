@@ -31,7 +31,9 @@ struct FullListView: View {
             } else if repository.isLoading {
                 ProgressView("Loading...")
             } else {
-                BeachList(beaches: filteredReports)
+                Section(header: Text("All Beaches")) {
+                    BeachList(beaches: filteredReports)
+                }
             }
         }
         .searchable(text: $searchText, prompt: "Search beaches")
