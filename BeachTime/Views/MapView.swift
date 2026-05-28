@@ -12,7 +12,7 @@ struct BeachMapView: View {
     @EnvironmentObject var repository: BeachReportRepository
     @State private var selectedReport: BeachReport?
     @State private var cameraPosition: MapCameraPosition = .automatic
-    @State private var selectedDetent: PresentationDetent = .medium
+    @State private var selectedDetent: PresentationDetent = .fraction(0.15)
     @State private var searchText: String = ""
     @State private var mapDidLoad = false
     @State private var isVisible = false
@@ -63,24 +63,14 @@ struct BeachMapView: View {
                         }
                     }
                 }
-                .mapControls {
-                    MapUserLocationButton()
-                    MapCompass()
-                }
-                .onAppear { isVisible = true }
-                .onDisappear { isVisible = false }
                 .onMapCameraChange {
-                    guard mapDidLoad else {
-                        mapDidLoad = true
-                        return
-                    }
                     if selectedReport == nil {
                         withAnimation {
                             selectedDetent = .fraction(0.15)
                         }
                     }
                 }
-                .sheet(isPresented: $isVisible) {
+                .sheet(isPresented: .constant(true)) {
                     NavigationStack {
                         if let selected = selectedReport {
                             // detail state
