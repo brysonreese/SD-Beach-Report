@@ -11,7 +11,7 @@ struct BeachList: View {
     @EnvironmentObject var repository: BeachReportRepository
     
     var body: some View {
-        List(beaches, id: \.siteID) { report in
+        ForEach(beaches) { report in
             NavigationLink(destination: DetailsView(siteID: report.siteID)) {
                 BeachReportRow(report: report)
             }
@@ -24,13 +24,6 @@ struct BeachList: View {
                     Label("Favorite", systemImage: "star")
                 }
             }
-        }.refreshable{
-            do {
-                try await repository.fetchReports(isRefreshing: true)
-            } catch {
-                repository.error = error
-            }
         }
     }
 }
-

@@ -45,6 +45,7 @@ class BeachReportRepository: ObservableObject {
         if(!isRefreshing) {
             isLoading = true
         }
+        reports = []
         error = nil
         
         do {

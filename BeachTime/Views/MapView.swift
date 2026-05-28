@@ -15,6 +15,7 @@ struct BeachMapView: View {
     @State private var selectedDetent: PresentationDetent = .medium
     @State private var searchText: String = ""
     @State private var mapDidLoad = false
+    @State private var isVisible = false
     
     var filteredReports: [BeachReport] {
         if searchText.isEmpty {
@@ -50,6 +51,13 @@ struct BeachMapView: View {
                                     withAnimation {
                                         selectedReport = report
                                         selectedDetent = .medium
+                                        cameraPosition = .camera(MapCamera(
+                                            centerCoordinate: CLLocationCoordinate2D(
+                                                latitude: report.latitude - 0.01,
+                                                longitude: report.longitude
+                                            ),
+                                            distance: 10000
+                                        ))
                                     }
                                 }
                         }
@@ -59,6 +67,8 @@ struct BeachMapView: View {
                     MapUserLocationButton()
                     MapCompass()
                 }
+                .onAppear { isVisible = true }
+                .onDisappear { isVisible = false }
                 .onMapCameraChange {
                     guard mapDidLoad else {
                         mapDidLoad = true
@@ -70,7 +80,7 @@ struct BeachMapView: View {
                         }
                     }
                 }
-                .sheet(isPresented: .constant(true)) {
+                .sheet(isPresented: $isVisible) {
                     NavigationStack {
                         if let selected = selectedReport {
                             // detail state
@@ -111,7 +121,6 @@ struct BeachMapView: View {
                                 .listRowSeparator(.hidden)
                                 .listRowBackground(Color.clear)
                                 
-                                // list content
                                 ForEach(filteredReports, id: \.siteID) { report in
                                     Button {
                                         withAnimation {
@@ -119,10 +128,10 @@ struct BeachMapView: View {
                                             selectedDetent = .medium
                                             cameraPosition = .camera(MapCamera(
                                                 centerCoordinate: CLLocationCoordinate2D(
-                                                    latitude: report.latitude,
+                                                    latitude: report.latitude - 0.01,
                                                     longitude: report.longitude
                                                 ),
-                                                distance: 5000
+                                                distance: 10000
                                             ))
                                         }
                                     } label: {
@@ -137,6 +146,7 @@ struct BeachMapView: View {
                     .presentationBackgroundInteraction(.enabled)
                     .presentationBackground(.regularMaterial)
                     .interactiveDismissDisabled()
+                    
                 }
             }
         }

@@ -22,30 +22,25 @@ struct FullListView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            Group {
-                if let error = repository.error {
-                    ScrollView{
-                        ContentUnavailableView {
-                            Label("Error", systemImage: "exclamationmark.triangle.fill")
-                            Text(error.localizedDescription)
-                        }
-                    }
-                } else if repository.isLoading {
-                    ProgressView("Loading...")
-                } else {
-                    BeachList(beaches: filteredReports)
+        List {
+            if let error = repository.error {
+                ContentUnavailableView {
+                    Label("Error", systemImage: "exclamationmark.triangle.fill")
+                    Text(error.localizedDescription)
                 }
+            } else if repository.isLoading {
+                ProgressView("Loading...")
+            } else {
+                BeachList(beaches: filteredReports)
             }
-            .searchable(text: $searchText, prompt: "Search beaches")
-            .navigationTitle("Beach Reports")
-            .padding(.top, 5)
-            .refreshable{
-                do {
-                    try await repository.fetchReports(isRefreshing: true)
-                } catch {
-                    repository.error = error
-                }
+        }
+        .searchable(text: $searchText, prompt: "Search beaches")
+        .navigationTitle("Beach Reports")
+        .refreshable {
+            do {
+                try await repository.fetchReports(isRefreshing: true)
+            } catch {
+                repository.error = error
             }
         }
     }

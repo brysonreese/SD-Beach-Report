@@ -13,13 +13,13 @@ struct BeachTimeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .environmentObject(repository)
         }
     }
 }
 
 #Preview {
-    ContentView()
+    MainView()
         .environmentObject(BeachReportRepository())
 }
