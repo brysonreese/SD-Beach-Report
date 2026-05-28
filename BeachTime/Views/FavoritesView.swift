@@ -31,6 +31,7 @@ struct FavoritesView: View {
                     BeachList(beaches: repository.favorites)
                 }
             }.navigationTitle("Favorites")
+            .padding(.top, 10)
             .refreshable{
                 do {
                     try await repository.fetchReports(isRefreshing: true)

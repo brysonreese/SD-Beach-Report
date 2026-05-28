@@ -37,8 +37,9 @@ struct FullListView: View {
                     BeachList(beaches: filteredReports)
                 }
             }
-            .searchable(text: $searchText, prompt: "Search beaches...")
+            .searchable(text: $searchText, prompt: "Search beaches")
             .navigationTitle("Beach Reports")
+            .padding(.top, 5)
             .refreshable{
                 do {
                     try await repository.fetchReports(isRefreshing: true)
