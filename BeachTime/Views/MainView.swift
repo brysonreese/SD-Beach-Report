@@ -13,7 +13,21 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             List {
-                BeachList(beaches: repository.favorites)
+                if let error = repository.error {
+                    ContentUnavailableView {
+                        Label("Error", systemImage: "exclamationmark.triangle.fill")
+                        Text(error.localizedDescription)
+                    }
+                } else if repository.isLoading {
+                    ProgressView("Loading...")
+                } else if repository.favorites.isEmpty {
+                    ContentUnavailableView {
+                        Label("No Favorites", systemImage: "star.slash")
+                        Text("Browse beaches to add favorites")
+                    }
+                } else {
+                    BeachList(beaches: repository.favorites)
+                }
             }
             .navigationTitle("Beach Time")
             .toolbar {
