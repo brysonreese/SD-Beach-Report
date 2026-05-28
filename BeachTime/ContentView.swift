@@ -9,19 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        TabView {
-            Tab("Reports", systemImage: "list.clipboard") {
-                FullListView()
+        NavigationStack {
+            List {
+                NavigationLink(destination: BeachMapView()) {
+                    Label("Map", systemImage: "map")
+                }
+                NavigationLink(destination: FullListView()) {
+                    Label("Beach Reports", systemImage: "list.clipboard")
+                }
+                NavigationLink(destination: FavoritesView()) {
+                    Label("Favorites", systemImage: "star")
+                }
             }
-            Tab("Favorites", systemImage: "star") {
-                FavoritesView()
-            }
-            Tab("Map", systemImage: "map") {
-                BeachMapView()
-            }
-            Tab("Settings", systemImage: "gear") {
-                Text("Settings")
-            }
+            .navigationTitle("Beach Time")
         }
     }
 }

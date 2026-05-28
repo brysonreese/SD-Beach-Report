@@ -14,6 +14,7 @@ struct BeachMapView: View {
     @State private var cameraPosition: MapCameraPosition = .automatic
     @State private var selectedDetent: PresentationDetent = .medium
     @State private var searchText: String = ""
+    @State private var mapDidLoad = false
     
     var filteredReports: [BeachReport] {
         if searchText.isEmpty {
@@ -26,94 +27,118 @@ struct BeachMapView: View {
     }
     
     var body: some View {
-        Map(position: $cameraPosition) {
-            UserAnnotation()
-            ForEach(repository.reports, id: \.siteID) { report in
-                Annotation(report.cleanName, coordinate: CLLocationCoordinate2D(
-                    latitude: report.latitude,
-                    longitude: report.longitude
-                )) {
-                    BeachMapPin(report: report)
-                        .onTapGesture {
-                            withAnimation {
-                                selectedReport = report
-                                selectedDetent = .medium
-                            }
-                        }
+        Group {
+            if let error = repository.error {
+                ScrollView{
+                    ContentUnavailableView {
+                        Label("Error", systemImage: "exclamationmark.triangle.fill")
+                        Text(error.localizedDescription)
+                    }
                 }
-            }
-        }
-        .mapControls {
-            MapUserLocationButton()
-            MapCompass()
-        }
-        .sheet(isPresented: .constant(true)) {
-            NavigationStack {
-                if let selected = selectedReport {
-                    // detail state
-                    DetailsView(siteID: selected.siteID)
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button {
+            } else if repository.isLoading {
+                ProgressView("Loading...")
+            } else {
+                Map(position: $cameraPosition) {
+                    UserAnnotation()
+                    ForEach(repository.reports, id: \.siteID) { report in
+                        Annotation(report.cleanName, coordinate: CLLocationCoordinate2D(
+                            latitude: report.latitude,
+                            longitude: report.longitude
+                        )) {
+                            BeachMapPin(report: report)
+                                .onTapGesture {
                                     withAnimation {
-                                        selectedReport = nil
+                                        selectedReport = report
                                         selectedDetent = .medium
                                     }
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "chevron.left")
-                                        Text("Beaches")
+                                }
+                        }
+                    }
+                }
+                .mapControls {
+                    MapUserLocationButton()
+                    MapCompass()
+                }
+                .onMapCameraChange {
+                    guard mapDidLoad else {
+                        mapDidLoad = true
+                        return
+                    }
+                    if selectedReport == nil {
+                        withAnimation {
+                            selectedDetent = .fraction(0.15)
+                        }
+                    }
+                }
+                .sheet(isPresented: .constant(true)) {
+                    NavigationStack {
+                        if let selected = selectedReport {
+                            // detail state
+                            DetailsView(siteID: selected.siteID)
+                                .toolbar {
+                                    ToolbarItem(placement: .navigationBarLeading) {
+                                        Button {
+                                            withAnimation {
+                                                selectedReport = nil
+                                                selectedDetent = .medium
+                                            }
+                                        } label: {
+                                            HStack {
+                                                Image(systemName: "chevron.left")
+                                                Text("Beaches")
+                                            }
+                                        }
                                     }
                                 }
-                            }
-                        }
-                } else {
-                    List {
-                        // search bar as header
-                        HStack {
-                            Image(systemName: "magnifyingglass")
-                                .foregroundStyle(.secondary)
-                            TextField("Search beaches...", text: $searchText)
-                                .autocorrectionDisabled()
-                            Button {
-                                searchText = ""
-                            } label: {
-                                Image(systemName: "xmark.circle.fill").foregroundColor(.secondary)
-                            }
-                        }
-                        .padding(8)
-                        .background(Color(.systemGray6))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .padding(.horizontal, 4)
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.clear)
-                        
-                        // list content
-                        ForEach(filteredReports, id: \.siteID) { report in
-                            Button {
-                                withAnimation {
-                                    selectedReport = report
-                                    selectedDetent = .medium
-                                    cameraPosition = .camera(MapCamera(
-                                        centerCoordinate: CLLocationCoordinate2D(
-                                            latitude: report.latitude,
-                                            longitude: report.longitude
-                                        ),
-                                        distance: 5000
-                                    ))
+                        } else {
+                            List {
+                                // search bar as header
+                                HStack {
+                                    Image(systemName: "magnifyingglass")
+                                        .foregroundStyle(.secondary)
+                                    TextField("Search beaches...", text: $searchText)
+                                        .autocorrectionDisabled()
+                                    Button {
+                                        searchText = ""
+                                    } label: {
+                                        Image(systemName: "xmark.circle.fill").foregroundColor(.secondary)
+                                    }
                                 }
-                            } label: {
-                                BeachReportRow(report: report)
-                            }
-                            .tint(.primary)
+                                .padding(8)
+                                .background(Color(.systemGray6))
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .padding(.horizontal, 4)
+                                .listRowSeparator(.hidden)
+                                .listRowBackground(Color.clear)
+                                
+                                // list content
+                                ForEach(filteredReports, id: \.siteID) { report in
+                                    Button {
+                                        withAnimation {
+                                            selectedReport = report
+                                            selectedDetent = .medium
+                                            cameraPosition = .camera(MapCamera(
+                                                centerCoordinate: CLLocationCoordinate2D(
+                                                    latitude: report.latitude,
+                                                    longitude: report.longitude
+                                                ),
+                                                distance: 5000
+                                            ))
+                                        }
+                                    } label: {
+                                        BeachReportRow(report: report)
+                                    }
+                                    .tint(.primary)
+                                }
+                            }.listStyle(.plain)
                         }
-                    }.listStyle(.plain)
+                    }
+                    .presentationDetents([.fraction(0.15), .medium, .large], selection: $selectedDetent)
+                    .presentationBackgroundInteraction(.enabled)
+                    .presentationBackground(.regularMaterial)
+                    .interactiveDismissDisabled()
                 }
             }
-            .presentationDetents([.fraction(0.15), .medium, .large], selection: $selectedDetent)
-            .presentationBackgroundInteraction(.enabled)
-            .presentationBackground(.regularMaterial)
-            .interactiveDismissDisabled()
         }
     }
 }
