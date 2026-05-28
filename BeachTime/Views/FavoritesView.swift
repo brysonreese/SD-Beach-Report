@@ -40,5 +40,4 @@ struct FavoritesView: View {
             }
         }
     }
-
 }

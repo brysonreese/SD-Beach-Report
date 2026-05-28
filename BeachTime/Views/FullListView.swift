@@ -37,6 +37,7 @@ struct FullListView: View {
                     BeachList(beaches: filteredReports)
                 }
             }
+            .searchable(text: $searchText, prompt: "Search beaches...")
             .navigationTitle("Beach Reports")
             .refreshable{
                 do {
@@ -46,6 +47,5 @@ struct FullListView: View {
                 }
             }
         }
-        .searchable(text: $searchText, prompt: "Search beaches...")
     }
 }

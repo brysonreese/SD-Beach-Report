@@ -8,25 +8,33 @@
 import SwiftUI
 
 struct DetailsView: View {
+    @EnvironmentObject var repository: BeachReportRepository
     let report: BeachReport
     @State private var parsedDescription: AttributedString?
     @State private var parsedAdvisory: AttributedString?
     @State private var parsedClosure: AttributedString?
     
     var body: some View {
+
         List {
             Section("Beach Info") {
-                LabeledContent("DEH ID", value: report.dehID)
                 LabeledContent("Name", value: report.cleanName)
-            }
-
-            Section("Description") {
-                if let parsedDescription = parsedDescription {
-                    Text(parsedDescription)
-                        .font(.body)
+                LabeledContent("Status") {
+                    HStack {
+                        Text(report.statusIcon.description)
+                        Image(systemName: report.statusIcon.iconName)
+                            .foregroundColor(report.statusIcon.color)
+                    }
                 }
             }
-
+            
+            Button {
+                repository.toggleFavorite(for: report)
+            } label: {
+                report.favorite ?
+                Label("Remove Favorite", systemImage: "star.fill") :
+                Label("Add Favorite", systemImage: "star")
+            }
             
             if report.advisory != nil && report.advisory != "" {
                 Section("Advisories") {
@@ -41,6 +49,13 @@ struct DetailsView: View {
                     if let closure = parsedClosure {
                         Text(closure)
                     }
+                }
+            }
+            
+            Section("Description") {
+                if let parsedDescription = parsedDescription {
+                    Text(parsedDescription)
+                        .font(.body)
                 }
             }
         }.task {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct BeachReport: Codable, Identifiable {
     var id: Int { siteID }
@@ -22,6 +23,15 @@ struct BeachReport: Codable, Identifiable {
     
     var cleanName: String {
         name.replacingOccurrences(of: #"\s*\(.*?\)$"#, with: "", options: .regularExpression)
+    }
+    
+    var statusIcon: (iconName: String, color: Color, description: String) {
+        switch indicatorID {
+        case 1: return ("xmark.circle.fill", .red, "Closed")
+        case 2: return ("checkmark.square.fill", .green, "Open")
+        case 3: return ("exclamationmark.triangle.fill", .yellow, "Warning")
+        default: return ("questionmark.circle.fill", .gray, "Unknown")
+        }
     }
     
     enum CodingKeys: String, CodingKey {

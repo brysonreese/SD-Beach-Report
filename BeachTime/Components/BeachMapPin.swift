@@ -11,19 +11,17 @@ import MapKit
 struct BeachMapPin: View {
     let report: BeachReport
     
-    var pinColor: Color {
-        switch report.indicatorID {
-        case 1: return .red
-        case 2: return .green
-        case 3: return .yellow
-        default: return .gray
-        }
-    }
-    
     var body: some View {
-        Circle()
-            .fill(pinColor)
-            .frame(width: 16, height: 16)
-            .overlay(Circle().stroke(.white, lineWidth: 2))
+        if report.favorite {
+            Image(systemName: "star.fill")
+                .foregroundColor(report.statusIcon.color)
+                .frame(width: 24, height: 24)
+                .overlay(Image(systemName: "star").foregroundColor(.white))
+        } else {
+            Circle()
+                .fill(report.statusIcon.color)
+                .frame(width: 16, height: 16)
+                .overlay(Circle().stroke(.white, lineWidth: 2))
+        }
     }
 }

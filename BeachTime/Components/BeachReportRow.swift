@@ -10,30 +10,23 @@ import SwiftUI
 struct BeachReportRow: View {
     let report: BeachReport
     
-    var statusIcon: (name: String, color: Color) {
-        switch report.indicatorID {
-        case 1: return ("xmark.circle.fill", .red)
-        case 2: return ("checkmark.square.fill", .green)
-        case 3: return ("exclamationmark.triangle.fill", .yellow)
-        default: return ("questionmark.circle.fill", .gray)
-        }
-    }
-    
     var body: some View {
         HStack(spacing: 12) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(report.cleanName)
-                    .font(.headline)
-                    .lineLimit(2)
-            }
+            Image(systemName: report.statusIcon.iconName)
+                .foregroundStyle(report.statusIcon.color)
+                .font(.system(size: 32))
+            
+            Text(report.cleanName)
+                .font(.headline)
+                .lineLimit(2)
             
             Spacer()
             
-            Image(systemName: statusIcon.name)
-                .foregroundStyle(statusIcon.color)
-                .font(.system(size: 32))
+            Image(systemName: report.favorite ? "star.fill" : "star")
+                .foregroundStyle(report.favorite ? .yellow : .clear)
+                .font(.system(size: 14))
             
         }
-        .padding(.vertical, 4)
+        .padding(4)
     }
 }
