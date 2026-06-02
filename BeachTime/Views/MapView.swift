@@ -18,9 +18,9 @@ struct BeachMapView: View {
     
     var filteredReports: [BeachReport] {
         if searchText.isEmpty {
-            return repository.sortedReports(by: BeachReportRepository.SortOptions.nameAtoZ)
+            return repository.reports
         } else {
-            return repository.sortedReports(by: BeachReportRepository.SortOptions.nameAtoZ).filter {
+            return repository.reports.filter {
                 $0.name.localizedCaseInsensitiveContains(searchText)
             }
         }
@@ -105,8 +105,6 @@ struct BeachMapView: View {
                                 .background(Color(.systemGray6))
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                                 .padding(.horizontal, 4)
-                                .listRowSeparator(.hidden)
-                                .listRowBackground(Color.clear)
                                 
                                 ForEach(filteredReports, id: \.siteID) { report in
                                     Button {
@@ -126,7 +124,10 @@ struct BeachMapView: View {
                                     }
                                     .tint(.primary)
                                 }
-                            }.listStyle(.plain)
+                            }
+                            .listStyle(.plain)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
                         }
                     }
                     .presentationDetents([.fraction(0.15), .medium, .large], selection: $selectedDetent)
