@@ -97,6 +97,7 @@ class BeachReportRepository: ObservableObject {
 
     func saveFavorites(favorites: [String]) {
         UserDefaults.standard.set(favorites, forKey: favoritesKey)
+        objectWillChange.send()
     }
 
     func loadFavorites() async {
