@@ -12,38 +12,37 @@ struct MainView: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                if let error = repository.error {
-                    ContentUnavailableView {
-                        Label("Error", systemImage: "exclamationmark.triangle.fill")
-                        Text(error.localizedDescription)
-                    }
-                } else if repository.isLoading {
-                    ProgressView("Loading...")
-                } else if repository.favorites.isEmpty {
-                    ContentUnavailableView {
-                        Label("No Favorites", systemImage: "star.slash")
-                        Text("Browse beaches to add favorites")
-                    }
-                } else {
-                    Section(header: Text("Favorites")) {
-                        BeachList(beaches: repository.favorites)
-                    }
-                }
-            }
-            .navigationTitle("BeachTime")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+            VStack{
+                HStack {
                     NavigationLink(destination: FullListView()) {
-                        Image(systemName: "list.clipboard")
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
+                        Label("Reports", systemImage: "list.clipboard")
+                    }.buttonStyle(.glass)
+                        .buttonSizing(.flexible)
                     NavigationLink(destination: BeachMapView()) {
-                        Image(systemName: "map")
+                        Label("Map", systemImage: "map")
+                    }.buttonStyle(.glass)
+                        .buttonSizing(.flexible)
+                }.padding(8)
+                List {
+                    if let error = repository.error {
+                        ContentUnavailableView {
+                            Label("Error", systemImage: "exclamationmark.triangle.fill")
+                            Text(error.localizedDescription)
+                        }
+                    } else if repository.isLoading {
+                        ProgressView("Loading...")
+                    } else if repository.favorites.isEmpty {
+                        ContentUnavailableView {
+                            Label("No Favorites", systemImage: "star.slash")
+                            Text("Browse beaches to add favorites")
+                        }
+                    } else {
+                        Section(header: Text("Favorites")) {
+                            BeachList(beaches: repository.favorites)
+                        }
                     }
                 }
-            }
+            }.navigationTitle(Text("BeachTime"))
             .refreshable{
                 do {
                     try await repository.fetchReports(isRefreshing: true)

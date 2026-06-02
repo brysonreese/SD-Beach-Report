@@ -14,8 +14,7 @@ struct BeachMapView: View {
     @State private var cameraPosition: MapCameraPosition = .automatic
     @State private var selectedDetent: PresentationDetent = .fraction(0.15)
     @State private var searchText: String = ""
-    @State private var mapDidLoad = false
-    @State private var isVisible = false
+    @State private var showSheet: Bool = true
     
     var filteredReports: [BeachReport] {
         if searchText.isEmpty {
@@ -40,7 +39,6 @@ struct BeachMapView: View {
                 ProgressView("Loading...")
             } else {
                 Map(position: $cameraPosition) {
-                    UserAnnotation()
                     ForEach(repository.reports, id: \.siteID) { report in
                         Annotation(report.cleanName, coordinate: CLLocationCoordinate2D(
                             latitude: report.latitude,
@@ -70,7 +68,7 @@ struct BeachMapView: View {
                         }
                     }
                 }
-                .sheet(isPresented: .constant(true)) {
+                .sheet(isPresented: $showSheet) {
                     NavigationStack {
                         if let selected = selectedReport {
                             // detail state
