@@ -25,8 +25,5 @@ struct BeachList: View {
                 }
             }
         }
-        .onMove { from, to in
-            repository.swapFavorites(from, to)
-        }
     }
 }

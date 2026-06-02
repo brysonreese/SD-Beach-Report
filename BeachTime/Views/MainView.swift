@@ -38,7 +38,23 @@ struct MainView: View {
                         }
                     } else {
                         Section(header: Text("Favorites")) {
-                            BeachList(beaches: repository.favorites)
+                            ForEach(repository.favorites) { report in
+                                NavigationLink(destination: DetailsView(siteID: report.siteID)) {
+                                    BeachReportRow(report: report)
+                                }
+                                .swipeActions(edge: .leading) {
+                                    Button {
+                                        repository.toggleFavorite(for: report)
+                                    } label: {
+                                        report.favorite ?
+                                        Label("Unfavorite", systemImage: "star.slash") :
+                                        Label("Favorite", systemImage: "star")
+                                    }
+                                }
+                            }
+                            .onMove { from, to in
+                                repository.swapFavorites(from, to)
+                            }
                         }
                     }
                     
