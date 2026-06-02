@@ -9,13 +9,14 @@ import SwiftUI
 
 struct FullListView: View {
     @EnvironmentObject var repository: BeachReportRepository
-    @State var searchText = ""
+    @State private var searchText = ""
+    @State private var selectedSort: BeachReportRepository.SortOptions = .nameAtoZ
     
     var filteredReports: [BeachReport] {
         if searchText.isEmpty {
-            return repository.sortedReports
+            return repository.sortedReports(by: selectedSort)
         } else {
-            return repository.sortedReports.filter {
+            return repository.sortedReports(by: selectedSort).filter {
                 $0.name.localizedCaseInsensitiveContains(searchText)
             }
         }
@@ -37,8 +38,19 @@ struct FullListView: View {
             }
         }
         .searchable(text: $searchText, prompt: "Search beaches")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Menu("Sort") {
+                    Picker("Sort", selection: $selectedSort) {
+                        ForEach(BeachReportRepository.SortOptions.allCases) { option in
+                            Text(option.title).tag(option)
+                        }
+                    }
+                }
+            }
+        }
         .navigationTitle("Beach Reports")
-        .refreshable {
+                .refreshable {
             do {
                 try await repository.fetchReports(isRefreshing: true)
             } catch {

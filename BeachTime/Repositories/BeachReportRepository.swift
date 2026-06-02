@@ -27,11 +27,40 @@ class BeachReportRepository: ObservableObject {
         return reports
     }
     
-    var sortedReports: [BeachReport] {
-        let order = [1, 3, 2]
-        return reports.sorted {
-            (order.firstIndex(of: $0.indicatorID) ?? 999) <
-            (order.firstIndex(of: $1.indicatorID) ?? 999)
+    enum SortOptions: String, Identifiable, CaseIterable {
+        case nameAtoZ
+        case nameZtoA
+        case severityLowtoHigh
+        case severityHightoLow
+        
+        var id: Self {
+            self
+        }
+        
+        var title: String {
+            switch self {
+                case .nameAtoZ: return "Name: A - Z"
+                case .nameZtoA: return "Name: Z - A"
+                case .severityLowtoHigh: return "Severity: Low - High"
+                case .severityHightoLow: return "Severity: High - Low"
+            }
+        }
+    }
+    
+    func sortedReports(by: SortOptions) -> [BeachReport] {
+        let severityOrderHighToLow: [Int] = [1, 3, 2]
+        
+        switch by {
+            case .nameAtoZ: return reports.sorted {$0.name < $1.name}
+            case .nameZtoA: return reports.sorted {$0.name > $1.name}
+            case .severityLowtoHigh: return reports.sorted {
+                (severityOrderHighToLow.firstIndex(of: $0.indicatorID) ?? 999) >
+                    (severityOrderHighToLow.firstIndex(of: $1.indicatorID) ?? 999)
+            }
+            case .severityHightoLow: return reports.sorted {
+                (severityOrderHighToLow.firstIndex(of: $0.indicatorID) ?? 999) <
+                    (severityOrderHighToLow.firstIndex(of: $1.indicatorID) ?? 999)
+            }
         }
     }
     
