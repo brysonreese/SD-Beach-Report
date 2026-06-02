@@ -47,7 +47,13 @@ struct MainView: View {
                     .font(.caption)
             }.navigationTitle(Text("SD Beach Report"))
                 .navigationSubtitle(Text("Welcome!"))
-                
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink(destination: AboutInfoView()) {
+                            Image(systemName: "info.circle")
+                        }
+                    }
+                }
             .refreshable{
                 do {
                     try await repository.fetchReports(isRefreshing: true)
