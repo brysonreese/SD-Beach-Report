@@ -22,7 +22,7 @@ struct MainView: View {
                         Label("Map", systemImage: "map")
                     }.buttonStyle(.glass)
                         .buttonSizing(.flexible)
-                }.padding(8)
+                }.padding(.top, 8)
                 List {
                     if let error = repository.error {
                         ContentUnavailableView {
@@ -41,8 +41,13 @@ struct MainView: View {
                             BeachList(beaches: repository.favorites)
                         }
                     }
-                }
-            }.navigationTitle(Text("BeachTime"))
+                    
+                }.listStyle(.plain)
+                Text("Tip: Long press and drag to reorder your favorites!")
+                    .font(.caption)
+            }.navigationTitle(Text("SD Beach Report"))
+                .navigationSubtitle(Text("Welcome!"))
+                
             .refreshable{
                 do {
                     try await repository.fetchReports(isRefreshing: true)

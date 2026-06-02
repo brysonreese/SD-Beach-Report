@@ -8,6 +8,7 @@
 import Foundation
 internal import Combine
 internal import System
+import SwiftUI
 
 @MainActor
 class BeachReportRepository: ObservableObject {
@@ -16,7 +17,14 @@ class BeachReportRepository: ObservableObject {
     @Published var error: Error?
     
     var favorites: [BeachReport] {
-        reports.filter { $0.favorite }
+        let savedIDs = UserDefaults.standard.stringArray(forKey: favoritesKey) ?? []
+        var reports: [BeachReport] = []
+        for dehId in savedIDs {
+            if let report = self.getReportByDehId(dehId) {
+                reports.append(report)
+            }
+        }
+        return reports
     }
     
     var sortedReports: [BeachReport] {
@@ -39,6 +47,10 @@ class BeachReportRepository: ObservableObject {
         Task {
             try await fetchReports()
         }
+    }
+    
+    func getReportByDehId(_ dehId: String) -> BeachReport? {
+        return reports.first(where: {$0.dehID == dehId})
     }
     
     func fetchReports(isRefreshing: Bool = false) async throws {
@@ -69,23 +81,35 @@ class BeachReportRepository: ObservableObject {
     }
     
     func toggleFavorite(for report: BeachReport) {
+        
         if let index = reports.firstIndex(where: { $0.dehID == report.dehID }) {
+            let savedIDs = UserDefaults.standard.stringArray(forKey: favoritesKey) ?? []
+            if reports[index].favorite {
+                saveFavorites(favorites: savedIDs.filter({ $0 != report.dehID }))
+            } else {
+                saveFavorites(favorites: savedIDs + [report.dehID])
+            }
             reports[index].favorite.toggle()
-            saveFavorites()
         }
     }
     
     private let favoritesKey = "favoriteDehIDs"
 
-    func saveFavorites() {
-        let ids = reports.filter { $0.favorite }.map { $0.dehID }
-        UserDefaults.standard.set(ids, forKey: favoritesKey)
+    func saveFavorites(favorites: [String]) {
+        UserDefaults.standard.set(favorites, forKey: favoritesKey)
     }
 
     func loadFavorites() async {
         let savedIDs = UserDefaults.standard.stringArray(forKey: favoritesKey) ?? []
         for index in reports.indices {
             reports[index].favorite = savedIDs.contains(reports[index].dehID)
+        }
+    }
+    
+    func swapFavorites(_ from: IndexSet, _ to: Int) {
+        if var savedIDs = UserDefaults.standard.stringArray(forKey: favoritesKey) {
+            savedIDs.move(fromOffsets: from, toOffset: to)
+            saveFavorites(favorites: savedIDs)
         }
     }
 }
