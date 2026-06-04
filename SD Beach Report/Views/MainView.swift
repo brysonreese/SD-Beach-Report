@@ -71,6 +71,7 @@ struct MainView: View {
                     .contentMargins(0)
                 Text("Tip: Long press and drag to reorder your favorites!")
                     .font(.caption)
+                    .confettiCannon(trigger: $confettiTrigger, num: 40, confettis: [.text("☀️"), .text("🌊"), .text("🏖️"), .text("🐚")], confettiSize: 20, radius: 800)
             }.navigationTitle(Text("Welcome!"))
                 .toolbar {
                     ToolbarItem(placement: .principal) {
@@ -79,7 +80,7 @@ struct MainView: View {
                             Text("SD Beach Report")
                         }.onTapGesture(count: 10) {
                             confettiTrigger += 1
-                        }.confettiCannon(trigger: $confettiTrigger, num: 50, confettis: [.text("☀️"), .text("🌊"), .text("🏖️"), .text("🐚")], confettiSize: 20, rainHeight: 1500, radius: 600)
+                        }
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         NavigationLink(destination: AboutInfoView()) {
