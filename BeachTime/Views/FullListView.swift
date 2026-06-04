@@ -40,7 +40,7 @@ struct FullListView: View {
         .searchable(text: $searchText, prompt: "Search beaches")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Menu("Sort") {
+                Menu("Sort: \(selectedSort.title)") {
                     Picker("Sort", selection: $selectedSort) {
                         ForEach(BeachReportRepository.SortOptions.allCases) { option in
                             Text(option.title).tag(option)

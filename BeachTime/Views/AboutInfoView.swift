@@ -29,7 +29,7 @@ struct AboutInfoView: View {
             }
             
             Section("Disclaimer") {
-                Text("Beach Time is an independent app and is not affiliated with, endorsed by, or officially connected to San Diego County or the Department of Environmental Health and Quality.")
+                Text("SD Beach Report is an independent app and is not affiliated with, endorsed by, or officially connected to San Diego County or the Department of Environmental Health and Quality.")
                     .foregroundStyle(.secondary)
                     .font(.footnote)
                 

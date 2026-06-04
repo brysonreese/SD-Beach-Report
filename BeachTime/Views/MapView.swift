@@ -19,9 +19,9 @@ struct BeachMapView: View {
     
     var filteredReports: [BeachReport] {
         if searchText.isEmpty {
-            return repository.reports
+            return repository.sortedReports(by: BeachReportRepository.SortOptions.nameAtoZ)
         } else {
-            return repository.reports.filter {
+            return repository.sortedReports(by: BeachReportRepository.SortOptions.nameAtoZ).filter {
                 $0.name.localizedCaseInsensitiveContains(searchText)
             }
         }

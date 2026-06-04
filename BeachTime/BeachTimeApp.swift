@@ -20,6 +20,7 @@ struct BeachTimeApp: App {
 }
 
 #Preview {
+    @Previewable @StateObject var repository = BeachReportRepository()
     MainView()
-        .environmentObject(BeachReportRepository())
+        .environmentObject(repository)
 }

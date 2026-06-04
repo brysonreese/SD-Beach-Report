@@ -15,11 +15,17 @@ struct MainView: View {
             VStack{
                 HStack {
                     NavigationLink(destination: FullListView()) {
-                        Label("Reports", systemImage: "list.clipboard")
+                        VStack {
+                            Image(systemName: "list.clipboard")
+                            Text("Reports")
+                        }
                     }.buttonStyle(.glass)
                         .buttonSizing(.flexible)
                     NavigationLink(destination: BeachMapView()) {
-                        Label("Map", systemImage: "map")
+                        VStack {
+                            Image(systemName: "map")
+                            Text("Map")
+                        }
                     }.buttonStyle(.glass)
                         .buttonSizing(.flexible)
                 }.padding(.top, 8)
@@ -59,12 +65,18 @@ struct MainView: View {
                     }
                     
                 }.listStyle(.plain)
+                    .contentMargins(0)
                 Text("Tip: Long press and drag to reorder your favorites!")
                     .font(.caption)
-            }.navigationTitle(Text("SD Beach Report"))
-                .navigationSubtitle(Text("Welcome!"))
+            }.navigationTitle(Text("Welcome!"))
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    ToolbarItem(placement: .principal) {
+                        HStack{
+                            Image(systemName: "water.waves").foregroundColor(.blue)
+                            Text("SD Beach Report")
+                        }
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
                         NavigationLink(destination: AboutInfoView()) {
                             Image(systemName: "info.circle")
                         }
