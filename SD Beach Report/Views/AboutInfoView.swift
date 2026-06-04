@@ -1,10 +1,3 @@
-//
-//  AboutInfoView.swift
-//  SDBeachReport
-//
-//  Created by Bryson Reese on 6/1/26.
-//
-
 import SwiftUI
 
 struct AboutInfoView: View {
@@ -43,6 +36,24 @@ struct AboutInfoView: View {
                     .foregroundStyle(.secondary)
                     .font(.footnote)
             }
+            
+            Section("Open Source") {
+                Text("SD Beach Report is open source. Contributions and feedback are welcome.")
+                
+                Link("View Source on GitHub",
+                     destination: URL(string: "https://github.com/brysonreese/SD-Beach-Report")!)
+                
+                Link("brysonreese.com",
+                     destination: URL(string: "https://brysonreese.com")!)
+            }
+            
+            Section {
+                Text("© Bryson Reese \(Calendar.current.component(.year, from: Date())). All rights reserved.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .center)
+            }
+            .listRowBackground(Color.clear)
         }
         .navigationTitle("About")
         .navigationBarTitleDisplayMode(.inline)
