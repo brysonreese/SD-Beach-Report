@@ -57,7 +57,6 @@ SD Beach Report
 │   ├── FullListView.swift
 │   ├── MainView.swift
 │   ├── MapView.swift
-│   └── BeachMapPin.swift
 ├── Assets.xcassets
 ├── SDBeachReportApp.swift
 └── README.md
