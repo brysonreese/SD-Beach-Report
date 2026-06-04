@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		826F81E02FC782BA00CF42DC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 826F81DF2FC782BA00CF42DC /* README.md */; };
+		8277271E2FD233E90015AFA5 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8277271D2FD233E90015AFA5 /* ConfettiSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8277271E2FD233E90015AFA5 /* ConfettiSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +73,7 @@
 			);
 			name = "SD Beach Report";
 			packageProductDependencies = (
+				8277271D2FD233E90015AFA5 /* ConfettiSwiftUI */,
 			);
 			productName = BeachTime;
 			productReference = 826F818E2FC7419A00CF42DC /* SD Beach Report.app */;
@@ -100,6 +103,9 @@
 			);
 			mainGroup = 826F81852FC7419A00CF42DC;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8277271C2FD233E90015AFA5 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 826F818F2FC7419A00CF42DC /* Products */;
 			projectDirPath = "";
@@ -347,6 +353,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8277271C2FD233E90015AFA5 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8277271D2FD233E90015AFA5 /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8277271C2FD233E90015AFA5 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 826F81862FC7419A00CF42DC /* Project object */;
 }

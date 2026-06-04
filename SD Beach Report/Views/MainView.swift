@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import ConfettiSwiftUI
 
 struct MainView: View {
     @EnvironmentObject var repository: BeachReportRepository
+    @State private var confettiTrigger: Int = 0
     
     var body: some View {
         NavigationStack {
@@ -75,7 +77,9 @@ struct MainView: View {
                         HStack{
                             Image(systemName: "water.waves").foregroundColor(.blue)
                             Text("SD Beach Report")
-                        }
+                        }.onTapGesture(count: 10) {
+                            confettiTrigger += 1
+                        }.confettiCannon(trigger: $confettiTrigger, num: 50, confettis: [.text("☀️"), .text("🌊"), .text("🏖️"), .text("🐚")], confettiSize: 20, rainHeight: 1500, radius: 600)
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         NavigationLink(destination: AboutInfoView()) {
