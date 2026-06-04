@@ -48,7 +48,7 @@ struct AboutInfoView: View {
             }
             
             Section {
-                Text("© Bryson Reese \(Calendar.current.component(.year, from: Date())). All rights reserved.")
+                Text("© Bryson Reese \(String(Calendar.current.component(.year, from: Date()))). All rights reserved.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)

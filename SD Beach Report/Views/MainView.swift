@@ -18,14 +18,14 @@ struct MainView: View {
                         VStack {
                             Image(systemName: "list.clipboard")
                             Text("Reports")
-                        }
+                        }.frame(maxHeight: 44)
                     }.buttonStyle(.glass)
                         .buttonSizing(.flexible)
                     NavigationLink(destination: BeachMapView()) {
                         VStack {
                             Image(systemName: "map")
                             Text("Map")
-                        }
+                        }.frame(maxHeight: 44)
                     }.buttonStyle(.glass)
                         .buttonSizing(.flexible)
                 }.padding(.top, 8)
