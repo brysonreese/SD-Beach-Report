@@ -10,6 +10,7 @@ import SwiftUI
 
 struct BeachMapView: View {
     @EnvironmentObject var repository: BeachReportRepository
+    @Environment(\.dismiss) private var dismiss
     @State private var selectedReport: BeachReport?
     @State private var cameraPosition: MapCameraPosition = .automatic
     @State private var selectedDetent: PresentationDetent = .fraction(0.15)
@@ -134,7 +135,17 @@ struct BeachMapView: View {
                     .presentationBackgroundInteraction(.enabled)
                     .presentationBackground(.regularMaterial)
                     .interactiveDismissDisabled()
-                    
+                }
+                .navigationBarBackButtonHidden(true)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button(action: {
+                            showSheet = false
+                            dismiss()
+                        }) {
+                            Image(systemName: "chevron.backward")
+                        }
+                    }
                 }
             }
         }
