@@ -1,6 +1,6 @@
 //
 //  MainView.swift
-//  SDBeachReport
+//  SD Beach Report
 //
 //  Created by Bryson Reese on 5/27/26.
 //
