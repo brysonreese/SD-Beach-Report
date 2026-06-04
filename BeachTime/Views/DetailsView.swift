@@ -62,7 +62,8 @@ struct DetailsView: View {
                             .font(.body)
                     }
                 }
-            }.onAppear {
+            }
+            .task(id: siteID) {
                 parsedDescription = report.description.htmlParsed
                 parsedAdvisory = report.advisory?.htmlParsed
                 parsedClosure = report.closure?.htmlParsed
