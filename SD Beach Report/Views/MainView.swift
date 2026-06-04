@@ -29,6 +29,7 @@ struct MainView: View {
                     }.buttonStyle(.glass)
                         .buttonSizing(.flexible)
                 }.padding(.top, 8)
+                    .padding(.horizontal, 8)
                 List {
                     if let error = repository.error {
                         ContentUnavailableView {
