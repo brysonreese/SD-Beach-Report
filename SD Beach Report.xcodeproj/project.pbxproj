@@ -11,14 +11,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		826F818E2FC7419A00CF42DC /* BeachTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeachTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		826F818E2FC7419A00CF42DC /* SD Beach Report.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SD Beach Report.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		826F81DF2FC782BA00CF42DC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		826F81902FC7419A00CF42DC /* BeachTime */ = {
+		826F81902FC7419A00CF42DC /* SD Beach Report */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BeachTime;
+			path = "SD Beach Report";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -37,7 +37,7 @@
 		826F81852FC7419A00CF42DC = {
 			isa = PBXGroup;
 			children = (
-				826F81902FC7419A00CF42DC /* BeachTime */,
+				826F81902FC7419A00CF42DC /* SD Beach Report */,
 				826F818F2FC7419A00CF42DC /* Products */,
 				826F81DF2FC782BA00CF42DC /* README.md */,
 			);
@@ -46,7 +46,7 @@
 		826F818F2FC7419A00CF42DC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				826F818E2FC7419A00CF42DC /* BeachTime.app */,
+				826F818E2FC7419A00CF42DC /* SD Beach Report.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -54,9 +54,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		826F818D2FC7419A00CF42DC /* BeachTime */ = {
+		826F818D2FC7419A00CF42DC /* SD Beach Report */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 826F81992FC7419B00CF42DC /* Build configuration list for PBXNativeTarget "BeachTime" */;
+			buildConfigurationList = 826F81992FC7419B00CF42DC /* Build configuration list for PBXNativeTarget "SD Beach Report" */;
 			buildPhases = (
 				826F818A2FC7419A00CF42DC /* Sources */,
 				826F818B2FC7419A00CF42DC /* Frameworks */,
@@ -67,13 +67,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				826F81902FC7419A00CF42DC /* BeachTime */,
+				826F81902FC7419A00CF42DC /* SD Beach Report */,
 			);
-			name = BeachTime;
+			name = "SD Beach Report";
 			packageProductDependencies = (
 			);
 			productName = BeachTime;
-			productReference = 826F818E2FC7419A00CF42DC /* BeachTime.app */;
+			productReference = 826F818E2FC7419A00CF42DC /* SD Beach Report.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -91,7 +91,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 826F81892FC7419A00CF42DC /* Build configuration list for PBXProject "BeachTime" */;
+			buildConfigurationList = 826F81892FC7419A00CF42DC /* Build configuration list for PBXProject "SD Beach Report" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -105,7 +105,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				826F818D2FC7419A00CF42DC /* BeachTime */,
+				826F818D2FC7419A00CF42DC /* SD Beach Report */,
 			);
 		};
 /* End PBXProject section */
@@ -271,7 +271,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = brysonreese.BeachTime;
+				PRODUCT_BUNDLE_IDENTIFIER = brysonreese.SDBeachReport;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -307,7 +307,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = brysonreese.BeachTime;
+				PRODUCT_BUNDLE_IDENTIFIER = brysonreese.SDBeachReport;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -326,7 +326,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		826F81892FC7419A00CF42DC /* Build configuration list for PBXProject "BeachTime" */ = {
+		826F81892FC7419A00CF42DC /* Build configuration list for PBXProject "SD Beach Report" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				826F81972FC7419B00CF42DC /* Debug */,
@@ -335,7 +335,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		826F81992FC7419B00CF42DC /* Build configuration list for PBXNativeTarget "BeachTime" */ = {
+		826F81992FC7419B00CF42DC /* Build configuration list for PBXNativeTarget "SD Beach Report" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				826F819A2FC7419B00CF42DC /* Debug */,

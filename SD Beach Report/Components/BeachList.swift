@@ -1,6 +1,6 @@
 //
 //  BeachList.swift
-//  BeachTime
+//  SDBeachReport
 //
 //  Created by Bryson Reese on 5/27/26.
 //

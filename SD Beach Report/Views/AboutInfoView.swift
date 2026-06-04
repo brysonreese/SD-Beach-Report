@@ -1,6 +1,6 @@
 //
 //  AboutInfoView.swift
-//  BeachTime
+//  SDBeachReport
 //
 //  Created by Bryson Reese on 6/1/26.
 //
