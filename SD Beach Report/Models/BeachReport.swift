@@ -29,7 +29,7 @@ struct BeachReport: Codable, Identifiable {
         switch indicatorID {
         case 1: return ("xmark.circle.fill", .red, "Closed")
         case 2: return ("checkmark.square.fill", .green, "Open")
-        case 3: return ("exclamationmark.triangle.fill", .yellow, "Warning")
+        case 3: return ("exclamationmark.triangle.fill", .yellow, "Advisory")
         default: return ("questionmark.circle.fill", .gray, "Unknown")
         }
     }
