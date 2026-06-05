@@ -88,9 +88,6 @@ struct MainView: View {
                     }
                 }.listStyle(.plain)
                     .contentMargins(0)
-                Color.clear
-                    .frame(height: 0)
-                    .confettiCannon(trigger: $confettiTrigger, num: 40, confettis: [.text("☀️"), .text("🌊"), .text("🏖️"), .text("🐚")], confettiSize: 20, radius: 800)
             }.navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -115,6 +112,10 @@ struct MainView: View {
                     repository.error = error
                 }
             }
+        }.overlay(alignment: .bottom) {
+            Color.clear
+                .frame(height: 1)
+                .confettiCannon(trigger: $confettiTrigger, num: 40, confettis: [.text("☀️"), .text("🌊"), .text("🏖️"), .text("🐚")], confettiSize: 20, radius: 800)
         }
     }
 }
