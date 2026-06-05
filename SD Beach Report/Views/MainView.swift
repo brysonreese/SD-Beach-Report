@@ -66,12 +66,11 @@ struct MainView: View {
                             }
                         }
                     }
-                    
                 }.listStyle(.plain)
                     .contentMargins(0)
-                Text("Tip: Long press and drag to reorder your favorites!")
-                    .font(.caption)
-                    .confettiCannon(trigger: $confettiTrigger, num: 40, confettis: [.text("☀️"), .text("🌊"), .text("🏖️"), .text("🐚")], confettiSize: 20, radius: 800)
+                Color.clear
+                        .frame(height: 0)
+                        .confettiCannon(trigger: $confettiTrigger, num: 40, confettis: [.text("☀️"), .text("🌊"), .text("🏖️"), .text("🐚")], confettiSize: 20, radius: 800)
             }.navigationTitle(Text("Welcome!"))
                 .toolbar {
                     ToolbarItem(placement: .principal) {
