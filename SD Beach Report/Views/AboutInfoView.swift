@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct AboutInfoView: View {
+    @AppStorage("hasSeenOnboarding") var hasSeenOnboarding = true
+    
     var body: some View {
         List {
             Section {
@@ -45,6 +47,14 @@ struct AboutInfoView: View {
                 
                 Link("brysonreese.com",
                      destination: URL(string: "https://brysonreese.com")!)
+            }
+            
+            Section("Need a refresher?") {
+                Button {
+                    hasSeenOnboarding = false
+                } label: {
+                    Label("Show Onboarding Again", systemImage: "arrow.trianglehead.counterclockwise")
+                }
             }
             
             Section {
