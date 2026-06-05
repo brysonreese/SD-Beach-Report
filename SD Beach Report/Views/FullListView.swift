@@ -50,7 +50,8 @@ struct FullListView: View {
             }
         }
         .navigationTitle("Beach Reports")
-                .refreshable {
+        .navigationBarTitleDisplayMode(.large)
+        .refreshable {
             do {
                 try await repository.fetchReports(isRefreshing: true)
             } catch {

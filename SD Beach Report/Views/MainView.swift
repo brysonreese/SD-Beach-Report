@@ -12,9 +12,29 @@ struct MainView: View {
     @EnvironmentObject var repository: BeachReportRepository
     @State private var confettiTrigger: Int = 0
     
+    var statusSummary: some View {
+        let closed = repository.reports.filter { $0.indicatorID == 1 }.count
+        let open = repository.reports.filter { $0.indicatorID == 2 }.count
+        let advisory = repository.reports.filter { $0.indicatorID == 3 }.count
+        
+        return HStack(spacing: 0) {
+            StatusSummaryItem(count: closed, label: "Closed", color: .red, icon: "xmark.circle.fill")
+            Divider()
+            StatusSummaryItem(count: advisory, label: "Advisory", color: .yellow, icon: "exclamationmark.triangle.fill")
+            Divider()
+            StatusSummaryItem(count: open, label: "Open", color: .green, icon: "checkmark.square.fill")
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 80)
+        .listRowInsets(EdgeInsets())
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
+    }
+    
     var body: some View {
         NavigationStack {
             VStack{
+                statusSummary
                 HStack {
                     NavigationLink(destination: FullListView()) {
                         VStack {
@@ -22,16 +42,16 @@ struct MainView: View {
                             Text("Reports")
                         }.frame(maxHeight: 44)
                     }.buttonStyle(.glass)
-                        .buttonSizing(.flexible)
+                    .buttonSizing(.flexible)
                     NavigationLink(destination: BeachMapView()) {
                         VStack {
                             Image(systemName: "map")
                             Text("Map")
                         }.frame(maxHeight: 44)
                     }.buttonStyle(.glass)
-                        .buttonSizing(.flexible)
+                    .buttonSizing(.flexible)
                 }.padding(.top, 8)
-                    .padding(.horizontal, 8)
+                .padding(.horizontal, 8)
                 List {
                     if let error = repository.error {
                         ContentUnavailableView {
@@ -69,24 +89,25 @@ struct MainView: View {
                 }.listStyle(.plain)
                     .contentMargins(0)
                 Color.clear
-                        .frame(height: 0)
-                        .confettiCannon(trigger: $confettiTrigger, num: 40, confettis: [.text("☀️"), .text("🌊"), .text("🏖️"), .text("🐚")], confettiSize: 20, radius: 800)
-            }.navigationTitle(Text("Welcome!"))
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        HStack{
-                            Image(systemName: "water.waves").foregroundColor(.blue)
-                            Text("SD Beach Report")
-                        }.onTapGesture(count: 10) {
-                            confettiTrigger += 1
-                        }
-                    }
-                    ToolbarItem(placement: .topBarTrailing) {
-                        NavigationLink(destination: AboutInfoView()) {
-                            Image(systemName: "info.circle")
-                        }
+                    .frame(height: 0)
+                    .confettiCannon(trigger: $confettiTrigger, num: 40, confettis: [.text("☀️"), .text("🌊"), .text("🏖️"), .text("🐚")], confettiSize: 20, radius: 800)
+            }.navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack{
+                        Image(systemName: "water.waves").foregroundColor(.blue)
+                        Text("SD Beach Report")
+                    }.onTapGesture(count: 10) {
+                        confettiTrigger += 1
                     }
                 }
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink(destination: AboutInfoView()) {
+                        Image(systemName: "info.circle")
+                    }
+                }
+            }
             .refreshable{
                 do {
                     try await repository.fetchReports(isRefreshing: true)
