@@ -22,6 +22,11 @@
 			path = "SD Beach Report";
 			sourceTree = "<group>";
 		};
+		82FAE5A62FD4C8B2008BD963 /* Screenshots */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Screenshots;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +44,7 @@
 		826F81852FC7419A00CF42DC = {
 			isa = PBXGroup;
 			children = (
+				82FAE5A62FD4C8B2008BD963 /* Screenshots */,
 				826F81902FC7419A00CF42DC /* SD Beach Report */,
 				826F818F2FC7419A00CF42DC /* Products */,
 				826F81DF2FC782BA00CF42DC /* README.md */,
@@ -70,6 +76,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				826F81902FC7419A00CF42DC /* SD Beach Report */,
+				82FAE5A62FD4C8B2008BD963 /* Screenshots */,
 			);
 			name = "SD Beach Report";
 			packageProductDependencies = (
@@ -263,7 +270,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20260605;
+				CURRENT_PROJECT_VERSION = 20260605.1;
 				DEVELOPMENT_TEAM = 8L262U29A9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -300,7 +307,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20260605;
+				CURRENT_PROJECT_VERSION = 20260605.1;
 				DEVELOPMENT_TEAM = 8L262U29A9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

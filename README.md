@@ -15,6 +15,12 @@ SD Beach Report pulls live data from the San Diego County Department of Environm
 - **Full beach list** — searchable and sortable list of all monitored San Diego beaches
 - **Interactive map** — all beach locations plotted on a map with color coded pins, tap a pin or select from the sheet list to view details
 
+## Screenshots
+
+| Home | Full List | Search | Map | Detail |
+|------|-----------|--------|-----|--------|
+| ![Home](Screenshots/home.png) | ![Full List](Screenshots/full_list.png) | ![Search](Screenshots/full_search.png) | ![Map](Screenshots/map.png) | ![Detail](Screenshots/map_detail.png) |
+
 ## Data Source
 
 Beach water quality data is sourced from the San Diego County DEH Beach and Bay Program. All monitoring data, sampling results, and water quality assessments are their work — this app simply presents it in a convenient format.
